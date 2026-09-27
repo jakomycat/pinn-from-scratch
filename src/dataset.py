@@ -1,5 +1,4 @@
 import torch
-import numpy as np
 
 def generate_domain_samples(n_u, n_f, x_min, x_max, t_min, t_max, device):
     """Generates training tensors for data IC + BC and residuals."""
