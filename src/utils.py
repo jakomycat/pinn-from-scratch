@@ -1,8 +1,12 @@
+from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-def plot_results(model, config):
+OUTPUT_DIR = Path("results")
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+def plot_results(model, config, save_dir=OUTPUT_DIR):
     model.eval()
     
     t = np.linspace(config.T_MIN, config.T_MAX, 200)
@@ -28,11 +32,12 @@ def plot_results(model, config):
     plt.ylabel('Space ($x$)')
     plt.tight_layout()
     
-    plt.savefig('burgers_pinn_solution.png', dpi=300)
+    file_path = save_dir / "burgers_pinn_solution.png"
+    plt.savefig(file_path, dpi=300)
     
     plt.close()
     
-def plot_loss_history(loss_history):
+def plot_loss_history(loss_history, save_dir=OUTPUT_DIR):
     plt.figure(figsize=(10, 6))
     
     plt.plot(loss_history, label='Total Loss')
@@ -46,7 +51,8 @@ def plot_loss_history(loss_history):
     plt.legend()
     plt.tight_layout()
     
-    plt.savefig('loss_history.png', dpi=300)
+    file_path = save_dir / "loss_history.png"
+    plt.savefig(file_path, dpi=300)
     
     plt.close()
     
